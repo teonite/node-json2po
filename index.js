@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 var program = require('commander');
 var path = require('path');
 var fs = require('fs');
@@ -31,7 +32,7 @@ function convert_file(source, target) {
 
 program
     .version('1.0.0')
-    .usage('[oprions] <source> <target>')
+    .usage('[options] <source> <target>')
     .arguments('<source> <target>')
     .option('-r, --recursive', 'Recursively convert all files in directory')
     .parse(process.argv);
