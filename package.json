@@ -1,0 +1,25 @@
+{
+  "name": "node-json2po",
+  "version": "1.0.0",
+  "description": "Node script to transform .json files to .po files easily",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.teonite.net:lpilatowski/node-json2po.git"
+  },
+  "keywords": [
+    "json",
+    "po",
+    "node",
+    "converter",
+    "json2po"
+  ],
+  "author": "Łukasz Piłatowski",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^2.12.2"
+  }
+}
