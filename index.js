@@ -52,7 +52,7 @@ if(!program.recursive) {
     }
     fs.readdir(source, (err, filenames) => {
         if(!filenames) {
-            console.error('No files in target directory!');
+            console.error('No files in source directory!');
             process.exit(1);
         }
         const files = filenames.filter(file => path.extname(file) === '.json');
