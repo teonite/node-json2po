@@ -1,6 +1,6 @@
-const program = require('commander');
-const path = require('path');
-const fs = require('fs');
+var program = require('commander');
+var path = require('path');
+var fs = require('fs');
 
 function normalize_string(str) {
     return str.replace(/\\?"/g, '\\"').replace(/(\r\n|\n|\r)/gm, '').replace(/\s+/g, ' ').trim();
@@ -17,13 +17,13 @@ function convert_file(source, target) {
     }
     console.log('Converting! ', source, target);
 
-    const stream = fs.createWriteStream(path.resolve(target), {flags: 'w'});
+    var stream = fs.createWriteStream(path.resolve(target), {flags: 'w'});
 
     const source_obj = require(path.resolve(source));
-    for(const key in source_obj) {
+    for(var key in source_obj) {
         if (source_obj.hasOwnProperty(key)) {
-            stream.write(`msgid "${key}"\n`);
-            stream.write(`msgstr "${normalize_string(source_obj[key])}"\n`);
+            stream.write('msgid "' + key + '"\n');
+            stream.write('msgstr "' + normalize_string(source_obj[key]) + '"\n');
             stream.write('\n');
         }
     }
@@ -36,7 +36,7 @@ program
     .option('-r, --recursive', 'Recursively convert all files in directory')
     .parse(process.argv);
 
-const NO_COMMAND_SPECIFIED = program.args.length === 0;
+var NO_COMMAND_SPECIFIED = program.args.length === 0;
 
 if(NO_COMMAND_SPECIFIED) {
    program.help();
@@ -50,20 +50,22 @@ if(!program.recursive) {
     if (!fs.existsSync(target)) {
         fs.mkdirSync(target);
     }
-    fs.readdir(source, (err, filenames) => {
+    fs.readdir(source, function(err, filenames) {
         if(!filenames) {
             console.error('No files in source directory!');
             process.exit(1);
         }
-        const files = filenames.filter(file => path.extname(file) === '.json');
+        const files = filenames.filter(function(file) {
+            return path.extname(file) === '.json';
+        });
 
         if(files.length === 0) {
             console.error('No .json files to convert in target directory!');
             process.exit(1);
         }
 
-        files.forEach(file => {
-            const target_file = path.basename(file, path.extname(file)) + '.po';
+        files.forEach(function(file) {
+            var target_file = path.basename(file, path.extname(file)) + '.po';
             convert_file(path.join(source, file), path.join(target, target_file));
         })
     })
